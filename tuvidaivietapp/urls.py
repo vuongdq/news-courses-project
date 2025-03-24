@@ -16,4 +16,5 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('register/', register, name='register'),
     path('accounts/profile/', profile, name='profile'),  # Sử dụng hàm profile đã import
+    path('antuvi/', include('antuvi.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

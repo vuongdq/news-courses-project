@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'news.apps.NewsConfig',
     'courses.apps.CoursesConfig',
     'taggit',
+    'antuvi',
 ]
 
 MIDDLEWARE = [
