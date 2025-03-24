@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Tin tức - Tuổi Đại Việt{% endblock %}
+{% block content %}
+    <h2 class="mb-4">Tin tức</h2>
+    <div class="row">
+        {% for news in news_list %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    {% if news.thumbnail %}
+                        <img src="{{ news.thumbnail.url }}" class="card-img-top" alt="{{ news.title }}">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title"><a href="{% url 'news_detail' news.slug %}">{{ news.title }}</a></h5>
+                        <p class="card-text">{{ news.content|truncatewords:20 }}</p>
+                    </div>
+                    <div class="card-footer text-muted">
+                        <small>{{ news.category.name }} | {{ news.published_at|date:"d/m/Y" }}</small>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col-12"><p class="text-muted">Chưa có tin tức nào.</p></div>
+        {% endfor %}
+    </div>
+{% endblock %}

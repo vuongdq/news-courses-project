@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %}Trang chủ - Tuổi Đại Việt{% endblock %}
+{% block content %}
+    <h2 class="mb-4">Tin tức nổi bật</h2>
+    <div class="row">
+        {% for news in featured_news %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    {% if news.thumbnail %}
+                        <img src="{{ news.thumbnail.url }}" class="card-img-top" alt="{{ news.title }}">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title"><a href="{% url 'news_detail' news.slug %}">{{ news.title }}</a></h5>
+                        <p class="card-text">{{ news.content|truncatewords:30 }}</p>
+                    </div>
+                    <div class="card-footer text-muted">
+                        <small>{{ news.published_at|date:"d/m/Y" }}</small>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col-12"><p class="text-muted">Chưa có tin tức nổi bật.</p></div>
+        {% endfor %}
+    </div>
+
+    <h2 class="mb-4 mt-5">Khoá học nổi bật</h2>
+    <div class="row">
+        {% for course in featured_courses %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    {% if course.thumbnail %}
+                        <img src="{{ course.thumbnail.url }}" class="card-img-top" alt="{{ course.title }}">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title"><a href="{% url 'course_detail' course.slug %}">{{ course.title }}</a></h5>
+                        <p class="card-text">{{ course.description|truncatewords:30 }}</p>
+                        <p class="card-text">Giá: {% if course.is_free %}Miễn phí{% else %}{{ course.price }} VNĐ{% endif %}</p>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col-12"><p class="text-muted">Chưa có khoá học nổi bật.</p></div>
+        {% endfor %}
+    </div>
+{% endblock %}

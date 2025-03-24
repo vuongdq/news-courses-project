@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}{{ course.title }} - Tuổi Đại Việt{% endblock %}
+{% block content %}
+    <div class="card mb-4">
+        {% if course.thumbnail %}
+            <img src="{{ course.thumbnail.url }}" class="card-img-top" alt="{{ course.title }}">
+        {% endif %}
+        <div class="card-body">
+            <h2 class="card-title">{{ course.title }}</h2>
+            <p class="card-text">{{ course.description }}</p>
+            <p class="card-text">Giá: {% if course.is_free %}Miễn phí{% else %}{{ course.price }} VNĐ{% endif %}</p>
+            <p class="text-muted">
+                <small>Danh mục: {{ course.category.name }} | Thời lượng: {{ course.duration }} | Số học viên: {{ course.enrollment_count }}</small>
+            </p>
+        </div>
+    </div>
+
+    <h3 class="mb-3">Danh sách bài học</h3>
+    <div class="accordion" id="lessonAccordion">
+        {% for lesson in lessons %}
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading{{ lesson.id }}">
+                    <button class="accordion-button {% if not forloop.first %}collapsed{% endif %}" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ lesson.id }}" aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}" aria-controls="collapse{{ lesson.id }}">
+                        {{ lesson.title }} {% if lesson.is_preview %}<span class="badge bg-success ms-2">Xem trước</span>{% endif %}
+                    </button>
+                </h2>
+                <div id="collapse{{ lesson.id }}" class="accordion-collapse collapse {% if forloop.first %}show{% endif %}" aria-labelledby="heading{{ lesson.id }}" data-bs-parent="#lessonAccordion">
+                    <div class="accordion-body">
+                        <p>{{ lesson.content }}</p>
+                        {% if lesson.video_url %}
+                            <p><a href="{{ lesson.video_url }}" target="_blank">Video bài học</a></p>
+                        {% endif %}
+                        <p class="text-muted">Thời lượng: {{ lesson.duration }}</p>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <p class="text-muted">Chưa có bài học nào cho khoá học này.</p>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Khoá học - Tuổi Đại Việt{% endblock %}
+{% block content %}
+    <h2 class="mb-4">Khoá học</h2>
+    <div class="row">
+        {% for course in course_list %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    {% if course.thumbnail %}
+                        <img src="{{ course.thumbnail.url }}" class="card-img-top" alt="{{ course.title }}">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title"><a href="{% url 'course_detail' course.slug %}">{{ course.title }}</a></h5>
+                        <p class="card-text">{{ course.description|truncatewords:20 }}</p>
+                        <p class="card-text">Giá: {% if course.is_free %}Miễn phí{% else %}{{ course.price }} VNĐ{% endif %}</p>
+                    </div>
+                    <div class="card-footer text-muted">
+                        <small>{{ course.category.name }} | {{ course.enrollment_count }} học viên</small>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col-12"><p class="text-muted">Chưa có khoá học nào.</p></div>
+        {% endfor %}
+    </div>
+{% endblock %}
