@@ -1,11 +1,18 @@
-{% extends 'lasotuvi/base2.html' %}
+<!DOCTYPE html>
+<html>
+
 {% load static %}
 
-{% block content %}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Lá số tử vi</title>
+    <link href="https://fonts.googleapis.com/css?family=Noto+Serif" rel="stylesheet">
+    <link href="{% static "style.css" %}" rel="stylesheet">
+    <script src="{% static 'client.js' %}"></script>
+</head>
 
-
-
-<!DOCTYPE html>
+<body>
 
     <div class="masthead">
         <div class="container">
@@ -321,5 +328,6 @@
             </div>
     </script>
 {% endverbatim %}
+</body>
 
-{% endblock %}
+</html>
